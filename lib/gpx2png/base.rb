@@ -119,6 +119,7 @@ module Gpx2png
 
     def self.logger
       @@logger = Logger.new(STDOUT) unless defined? @@logger
+      @@logger.level = Logger::INFO
       return @@logger
     end
 
