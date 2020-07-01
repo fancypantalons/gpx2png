@@ -169,6 +169,10 @@ module Gpx2png
               bitmap_xa, bitmap_ya,
               bitmap_xb, bitmap_yb
             )
+
+            if (i == 1)
+              @r.markers << { :x => bitmap_xa, :y => bitmap_ya }
+            end
           end
         end
         self.class.logger.info "Layers - #{@layers.size.to_s.red} with #{_coords_count.to_s.yellow} coords have been added to image"
