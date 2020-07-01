@@ -141,22 +141,24 @@ module Gpx2png
       #http://rmagick.rubyforge.org/web2/web2-3.html
 
       @markers.each do |p|
-        p[:x_label] = p[:x_after_crop] + 10
-        p[:y_label] = p[:y_after_crop] - 15
+        if p.key? :label
+          p[:x_label] = p[:x_after_crop] + 10
+          p[:y_label] = p[:y_after_crop] - 15
 
-        tm = @marker_label.get_type_metrics(@image, p[:label])
-        p[:text_width] = tm.width
-        p[:text_height] = tm.height
-        p[:text_padding] = 3
+          tm = @marker_label.get_type_metrics(@image, p[:label])
+          p[:text_width] = tm.width
+          p[:text_height] = tm.height
+          p[:text_padding] = 3
 
-        @marker_frame.rectangle(
-          p[:x_label],
-          p[:y_label],
-          p[:x_label] + p[:text_width] + p[:text_padding] * 2,
-          p[:y_label] + p[:text_height] + p[:text_padding] * 2
-        )
-        # text
-        @marker_label.text(p[:x_label] + p[:text_padding], p[:y_label] + p[:text_padding] + 12, p[:label].to_s + " ")
+          @marker_frame.rectangle(
+            p[:x_label],
+            p[:y_label],
+            p[:x_label] + p[:text_width] + p[:text_padding] * 2,
+            p[:y_label] + p[:text_height] + p[:text_padding] * 2
+          )
+          #text
+          @marker_label.text(p[:x_label] + p[:text_padding], p[:y_label] + p[:text_padding] + 12, p[:label].to_s + " ")
+        end
       end
 
       @marker_frame.draw(@image)
